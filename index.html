@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Barcelona Virtual Marketing</title>
+    <link rel="stylesheet" type="text/css" href="styles.css">
+    <script src="https://code.jquery.com/jquery-3.4.1.js"
+        integrity="sha256-WpOohJOqMqqyKL9FccASB9O0KwACQJpFTUBLTYOVvVU=" crossorigin="anonymous"></script>
+
+</head>
+
+<body>
+    <div>
+        <form id="formulario" method="POST">
+            <img src="./sources/unnamed.png" alt=" no logo image" class="imagen" width="150px" height="100px">
+            <br>
+            <h4>Por favor llena los campos siguientes:</h4>
+            <input type="text" id="Nombre" name="Nombre" value="Nombre">
+            <input type="text" id="Apellido" name="Apellido" value="Apellido"><br>
+            <input type="text" id="Email" name="Email" value="Email">
+            <input type="text" id="RepetirEmail" name="RepetirEmail" value="RepetirEmail"><br>
+            <input type="text" id="DNI" name="DNI" value="DNI">
+            <input type="text" id="Movil" name="movil" value="móvil"><br>
+            <input type="submit" class="button" id="botonEnviar" value="Enviar">
+            <br>
+            <span class="formulario_error" id="nombre_msg_error"></span><br>
+            <span class="formulario_error" id="apellido_msg_error"></span><br>
+            <span class="formulario_error" id="email_msg_error"></span><br>
+            <span class="formulario_error" id="repetirEmail_msg_error"></span><br>
+            <span class="formulario_error" id="dni_msg_error"></span><br>
+            <span class="formulario_error" id="movil_msg_error"></span>
+
+
+        </form>
+    </div>
+
+    <script type="text/javascript">
+        $(function () {
+            $("#nombre_msg_error").hide();
+            $("#apellido_msg_error").hide();
+            $("#email_msg_error").hide();
+            $("#repetirEmail_msg_error").hide();
+            $("#dni_msg_error").hide();
+            $("#movil_msg_error").hide();
+
+
+            let nombre_error = false;
+            let apellido_error = false;
+            let email_error = false;
+            let repetirEmail_error = false;
+            let dni_error = false;
+            let movil_error = false;
+
+            $("#Nombre").focusout(function () {
+                comprueba_nombre();
+            })
+            $("#Apellido").focusout(function () {
+                comprueba_apellido();
+            })
+            $("#Email").focusout(function () {
+                comprueba_email();
+            })
+            $("#RepetirEmail").focusout(function () {
+                comprueba_repetirEmail();
+            })
+            $("#DNI").focusout(function () {
+                comprueba_dni();
+            })
+            $("#Movil").focusout(function () {
+                comprueba_movil();
+            })
+        })
+
+        function comprueba_nombre() {
+
+            let patron = /^[a-zA-Z]*$/;
+            let nombreFormulario = $("#Nombre").val();
+            if (patron.test(nombreFormulario) && nombreFormulario !== "") {
+                $("#nombre_msg_error").hide();
+            } else {
+                $("#nombre_msg_error").html("el Nombre sólo puede contener carácteres");
+                $("#nombre_msg_error").show();
+                nombre_error = true;
+            }
+
+
+        }
+        function comprueba_apellido() {
+
+            let patron = /^[a-zA-Z]*$/;
+            let apellidoFormulario = $("#Apellido").val();
+            if (patron.test(apellidoFormulario) && apellidoFormulario !== "") {
+                $("#apellido_msg_error").hide();
+            } else {
+                $("#apellido_msg_error").html(" el Apellido sólo puede contener carácteres");
+                $("#apellido_msg_error").show();
+                apellido_error = true;
+            }
+        }
+        function comprueba_email() {
+
+            let patron = /^([\w-\.]+@([\w-]+\.)+[\w-]{2,4})?$/;
+            let emailFormulario = $("#Email").val();
+            if (patron.test(emailFormulario) && emailFormulario !== "") {
+                $("#email_msg_error").hide();
+            } else {
+                $("#email_msg_error").html(" Email inválido");
+                $("#email_msg_error").show();
+                email_error = true;
+            }
+        }
+        function comprueba_repetirEmail() {
+
+            let email = $("#Email").val()
+            let emailRepetido = $("#RepetirEmail").val();
+            if (email === emailRepetido) {
+                $("#repetirEmail_msg_error").hide();
+            } else {
+                $("#repetirEmail_msg_error").html(" El email no es el mismo, vuelve a escribirlo");
+                $("#repetirEmail_msg_error").show();
+                email_error = true;
+            }
+        }
+        function comprueba_dni() {
+
+            let patron = /^(\d{8})([A-Z])$/;
+            let dni = $("#DNI").val();
+            if (patron.test(dni) && dni !== "") {
+                $("#dni_msg_error").hide();
+            } else {
+                $("#dni_msg_error").html(" DNI inválido, insertelo correctamente");
+                $("#dni_msg_error").show();
+                email_error = true;
+            }
+        }
+
+        function comprueba_movil() {
+
+            let patron = /^(\+34|0034|34)?[6|7|8|9][0-9]{8}$/;
+            let movil = $("#movil").val();
+            if (patron.test(movil) && movil !== "") {
+                $("#movil_msg_error").hide();
+            } else {
+                $("#movil_msg_error").html(" móvil inválido");
+                $("#movil_msg_error").show();
+                movil_error = true;
+            }
+        }
+    </script>
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $("#botonEnviar").click(function () {
+                let datos = $("#formulario").serialize();
+
+                $.ajax({
+                    type: "POST",
+                    url: "insertar.php",
+                    data: datos,
+                    success: function (r) {
+                        if (r == 1) {
+                            alert("agregado con éxito")
+                        } else {
+                            alert( "fallo de servidor")
+                        }
+
+                    }
+
+                });
+                return false;
+            })
+        });
+
+    </script>
+
+
+
+</body>
+
+</html>

@@ -1,0 +1,50 @@
+body{
+    background-color: rgb(214, 202, 202);
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+form{
+    
+    background-color: white;
+    color: #999;
+    border-radius: 3px;
+    box-shadow: 5px 5px 10px -1px rgba(0,0,0,0.52);
+    width: 500px;
+    margin: 5% auto;
+    padding:3%;
+}
+img{
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+}
+h4{
+    text-align:center;
+}
+input{
+    outline: none;
+    border: 1px #000;
+  border-style: none none solid none;
+  font-family: Arial, Helvetica, sans-serif;
+  margin-left: 8%;
+  margin-top: 5%;
+}
+.formulario_error{
+    color: red;
+}
+
+.button{	box-shadow:inset 0px 1px 0px 0px #304b66;
+	background-color:#1c3f52;
+	border-radius:3px;
+	border:1px solid #16354a;
+	display:inline-block;
+	cursor:pointer;
+	color:#ffffff;
+	font-family:Arial;
+	font-size:13px;
+    padding:6px 24px;
+    display: block;
+    margin-top: 5%;
+    margin-left: auto;
+    margin-right: auto;
+}
